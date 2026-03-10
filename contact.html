@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Intime Services & Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .contact-section { padding: 80px 0 120px; }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* LEFT PANEL */
+
+    /*waring triggered line that,s why i comented*/
+    /* .contact-info {} */
+    .ci-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .ci-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .ci-title span { color: var(--accent); }
+    .ci-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .contact-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(10,18,28,0.8);
+      border: 1px solid rgba(0,180,255,0.1);
+      padding: 20px 24px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .contact-card:hover { border-color: rgba(0,180,255,0.3); background: rgba(0,180,255,0.04); }
+    .cc-icon {
+      width: 44px; height: 44px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(0,180,255,0.2);
+      font-size: 20px;
+    }
+    .cc-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: rgba(0,180,255,0.5);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .cc-value {
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* HOURS */
+    .hours-card {
+      background: rgba(10,18,28,0.8);
+      border: 1px solid rgba(0,180,255,0.1);
+      padding: 24px;
+    }
+    .hours-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: rgba(0,180,255,0.5);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(0,180,255,0.08);
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 13px;
+      color: var(--muted);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-open { color: var(--accent2); }
+    .hours-closed { color: rgba(255,255,255,0.25); }
+
+    /* FORM */
+    .contact-form-wrap {
+      background: rgba(10,18,28,0.8);
+      border: 1px solid rgba(0,180,255,0.12);
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-form-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(0,255,180,0.5), var(--accent));
+    }
+    .form-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .form-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 36px;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: rgba(0,180,255,0.5);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(0,180,255,0.03);
+      border: 1px solid rgba(0,180,255,0.12);
+      color: rgba(255,255,255,0.85);
+      padding: 12px 16px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(0,180,255,0.5)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    .form-group select option { background: #0a1420; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(0,180,255,0.4);
+      background: rgba(0,180,255,0.05);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 16px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: #fff; transform: translateY(-2px); }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 0;
+    }
+    .form-success.show { display: block; }
+    .form-success-icon { font-size: 48px; margin-bottom: 16px; }
+    .form-success h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+    .form-success p { color: var(--muted); font-size: 14px; }
+
+    /* MAP PLACEHOLDER */
+    .map-section { padding: 0 0 80px; }
+    .map-placeholder {
+      background: rgba(10,18,28,0.8);
+      border: 1px solid rgba(0,180,255,0.1);
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0,180,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .map-pin {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .map-pin-icon {
+      font-size: 40px;
+      display: block;
+      margin-bottom: 12px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .map-pin-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      background: rgba(6,13,21,0.9);
+      padding: 8px 16px;
+      border: 1px solid rgba(0,180,255,0.2);
+    }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo"><div class="logo-hex"></div><span>Intime <em>Services</em></span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+      </div>
+      <a href="contact.html" class="nav-cta">Get Support</a>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-bg"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="page-hero-tag">// Contact Us</div>
+        <h1>Let's <span>Talk</span> IT</h1>
+        <p>Reach out for service requests, AMC quotes, or just a free consultation. We respond fast.</p>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a><span>/</span>
+          <span style="color:rgba(255,255,255,0.5);">Contact</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-layout">
+
+          <!-- LEFT INFO -->
+          <div class="contact-info reveal">
+            <div class="ci-tag">// Reach Us</div>
+            <h2 class="ci-title">We're Here<br>to <span>Help</span></h2>
+            <p class="ci-desc">Whether you need emergency support, a routine service call, or want to discuss an AMC contract — our team is ready to assist.</p>
+
+            <div class="contact-cards">
+              <a href="tel:8867899982" class="contact-card">
+                <div class="cc-icon">📞</div>
+                <div>
+                  <div class="cc-label">Call Us</div>
+                  <div class="cc-value">+91 8867899982</div>
+                </div>
+              </a>
+              <a href="tel:+919876543210" class="contact-card">
+                <div class="cc-icon">📱</div>
+                <div>
+                  <div class="cc-label">Emergency Helpline</div>
+                  <div class="cc-value">+91 8867899982</div>
+                </div>
+              </a>
+              <a href="mailto:info@intimeservices.in" class="contact-card">
+                <div class="cc-icon">✉</div>
+                <div>
+                  <div class="cc-label">Email</div>
+                  <div class="cc-value">intimesolutionab@gmail.com</div>
+                </div>
+              </a>
+              <a href="mailto:support@intimeservices.in" class="contact-card">
+                <div class="cc-icon">🎫</div>
+                <div>
+                  <div class="cc-label">Support Tickets</div>
+                  <div class="cc-value">support@intimeservices.in</div>
+                </div>
+              </a>
+              <div class="contact-card" style="cursor:default;">
+                <div class="cc-icon">📍</div>
+                <div>
+                  <div class="cc-label">Office Address</div>
+                  <div class="cc-value">42,Banglore  &ndash;Pincode, Karnataka</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hours-card">
+              <div class="hours-title">Business Hours</div>
+              <div class="hours-row"><span>Monday</span><span class="hours-open">00 AM &ndash; 00 PM</span></div>
+              <div class="hours-row"><span>Tuesday</span><span class="hours-open">00 AM &ndash; 00 PM</span></div>
+              <div class="hours-row"><span>Wednesday</span><span class="hours-open">00 AM &ndash; 00 PM</span></div>
+              <div class="hours-row"><span>Thursday</span><span class="hours-open">00 AM &ndash; 00 PM</span></div>
+              <div class="hours-row"><span>Friday</span><span class="hours-open">00 AM &ndash; 00 PM</span></div>
+              <div class="hours-row"><span>Saturday</span><span class="hours-open">00 AM &ndash; 00 PM</span></div>
+              <div class="hours-row"><span>Sunday</span><span class="hours-closed">Closed</span></div>
+              <div class="hours-row" style="margin-top:8px;border-top:1px solid rgba(0,180,255,0.08);padding-top:12px;">
+                <span style="color:rgba(0,180,255,0.7);">Emergency Support</span>
+                <span class="hours-open">12 / 5</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT FORM -->
+          <div class="contact-form-wrap reveal">
+            <div id="formContent">
+              <div class="form-title">Send Us a Message</div>
+              <div class="form-sub">// We'll respond within 2 business hours</div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Your Name *</label>
+                  <input type="text" id="fname" placeholder="" required>
+                </div>
+                <div class="form-group">
+                  <label>Company Name</label>
+                  <input type="text" id="fcompany" placeholder="">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Phone Number *</label>
+                  <input type="tel" id="fphone" placeholder="" required>           </div>
+                <div class="form-group">
+                  <label>Email Address *</label>
+                  <input type="email" id="femail" placeholder="" required>
+                                 </div>
+              </div>
+
+              <div class="form-group">
+                <label>Service Required *</label>
+                <select id="fservice">
+                  <option value="" disabled selected>Select a service...</option>
+                  <option>AMC / Annual Maintenance Contract</option>
+                  <option>Computer Repair &amp; Service</option>
+                  <option>Printer Service &amp; Repair</option>
+                  <option>Cartridge Refill / Supply</option>
+                  <option>Networking Setup</option>
+                  <option>Emergency Support</option>
+                  <option>Other / General Enquiry</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Number of Systems (if known)</label>
+                <select id="fsystems">
+                  <option value="" disabled selected>Select range...</option>
+                  <option>1 &ndash;5 systems</option>
+                  <option>6 &ndash; 20 systems</option>
+                  <option>21 &ndash;50 systems</option>
+                  <option>51 &ndash;100 systems</option>
+                  <option>100+ systems</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Message / Issue Description *</label>
+                <textarea id="fmessage" placeholder="Briefly describe your IT issue or requirement..."></textarea>
+              </div>
+
+              <button class="form-submit" onclick="submitForm()">Send Message ▶</button>
+            </div>
+
+            <div class="form-success" id="formSuccess">
+              <div class="form-success-icon">✅</div>
+              <h3>Message Sent!</h3>
+              <p>Thank you for reaching out. Our team will contact you within 2 business hours.</p>
+              <p style="margin-top:8px;color:rgba(0,180,255,0.6);font-family:'IBM Plex Mono',monospace;font-size:11px;">For emergencies, call: +91 987 654 3210</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP -->
+  
+    <div class="map-section">
+      <div class="container">
+        <div class="map-placeholder">
+          <div class="map-pin">
+            <span class="map-pin-icon">📍</span>
+            <div class="map-pin-label">INTIME SERVICES — MYSURU, KARNATAKA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid-bg"></div>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="margin-bottom:16px;"><div class="logo-hex"></div><span>Intime <em>Services</em></span></a>
+        <p>Complete IT support &amp; solutions for businesses. Fast, reliable, professional.</p>
+        <div class="footer-contact-list">
+          <a href="tel:+8867899982">📞 +91 8867899982</a>
+           <p>Email: <a href="mailto:intimesolutionab@email.com">intimesolutionab@gmail</a
+          <span>📍 Mysuru, Karnataka</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Navigate</div>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Services</div>
+        <ul>
+          <li><a href="services.html#amc">AMC Contracts</a></li>
+          <li><a href="services.html#computer">Computer Repair</a></li>
+          <li><a href="services.html#printer">Printer Service</a></li>
+          <li><a href="services.html#networking">Networking</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Working Hours</div>
+        <div class="hours-list">
+          <div><span>Mon &ndash; Sat</span><span class="accent-text">9:00 &ndash;18:00</span></div>
+          <div><span>Sunday</span><span>Closed</span></div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)">
+            <span style="color:rgba(0,180,255,0.7);font-size:12px;">Emergency Support 24/7</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <span>© 2026 Intime Services &amp; Solutions. All rights reserved.</span>
+        <span class="footer-version">v2.4 // stable</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    function submitForm() {
+      const name = document.getElementById('fname').value;
+      const phone = document.getElementById('fphone').value;
+      const email = document.getElementById('femail').value;
+      const service = document.getElementById('fservice').value;
+      const message = document.getElementById('fmessage').value;
+      if (!name || !phone || !email || !service || !message) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+    }
+  </script>
+</body>
+</html>
